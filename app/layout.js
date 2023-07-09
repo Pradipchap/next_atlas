@@ -1,7 +1,7 @@
 import Provider from "@/components/provider";
 import "./globals.css";
 
-import { Nav } from "@/components/Nav";
+import { Nav } from "@/components/Nav.js";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 

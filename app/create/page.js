@@ -3,13 +3,16 @@ import React from "react";
 import Form from "@/components/Form";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 const Create = async () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session } = useSession({
+    required:true,
+    onUnauthenticated(){redirect("/?callbackUrl=/create")}
+  });
   const createBlog = async (data) => {
     console.log(data);
-    alert(` value of session ${session.user.name}`);
+    console.log(` value of session ${session.user.name}`);
     try {
       //upload to mongodb database
 

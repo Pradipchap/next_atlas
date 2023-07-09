@@ -1,20 +1,20 @@
-import { Schema,model,models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
-const blogSchema=new Schema({
-    userid:{
-        type:Schema.Types.ObjectId,
-        who:"user"
-    },
-    title:{
-        type:String,
-        required:[true,"Title is required"],
-
-    },
-    description:{
-        type:String,
-        required:[true,"Description is required"],
-    },
-
+const BlogSchema = new Schema({
+  userid: {
+    type: Schema.Types.ObjectId,
+    who: "User",
+  },
+  title: {
+    type: String,
+    required: [true, "Prompt is required."],
+  },
+  description: {
+    type: String,
+    required: [true, "Tag is required."],
+  },
 });
-const Blog=models.Blog|| model("Blog",blogSchema);
+
+const Blog = models.Blog || model("Blog", BlogSchema);
+
 export default Blog;
