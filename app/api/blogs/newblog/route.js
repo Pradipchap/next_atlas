@@ -6,7 +6,7 @@ export const POST = async (request) => {
 
     try {
         await connectToDB();
-        const newPrompt = new Blog({  userid, title, description });
+        const newPrompt = new Blog({  userid, title, description,"blogid":userid+Date.now() });
 
         await newPrompt.save();
         return new Response(JSON.stringify(newPrompt), { status: 201 })

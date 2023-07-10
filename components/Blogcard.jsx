@@ -1,6 +1,6 @@
 import React from "react";
 
-const BlogCard = ({ title ,description}) => {
+const BlogCard = ({ title ,description,userid,blogid}) => {
   return (
     <a
       href="#"
@@ -19,6 +19,7 @@ const BlogCard = ({ title ,description}) => {
           {description}
         </p>
       </div>
+      <p>{blogid}</p>
     </a>
   );
 };

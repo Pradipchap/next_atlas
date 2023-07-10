@@ -22,6 +22,7 @@ const Create = async () => {
           userid: session?.user.id,
           title: data.title,
           description: data.description,
+         
         }),
       });
       await console.log(res);

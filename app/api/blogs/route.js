@@ -24,7 +24,7 @@ import { connectToDB } from "@utils/database";
 export const GET=async(request)=>{
 try {
     await connectToDB()
-    const Blogs=await Blog.find({}).populate('userid');
+    const Blogs=await Blog.find({});
     return new Response(JSON.stringify(Blogs),{status:200})
 } catch (error) {
     return new Response("error while sending blogs",{status:500})

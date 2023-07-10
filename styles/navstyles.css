@@ -1,0 +1,22 @@
+.menu:hover{
+    .menutext{
+        transform: translate();
+        transition: cubic-bezier(0.23, 1, 0.320, 1);
+        transition-duration: 1s;
+    }
+    .menubar{
+        transform: translateX(-10px);
+        transition-duration: 1s;
+    }
+    .m1{
+        transform: rotate(-45deg)translateY(7px);
+
+        transition-duration: 0.5s;
+    }
+    .m2{
+        transform: rotate(225deg)translateY(8px);
+        transition-duration: 0.5s;
+    }
+  
+
+}

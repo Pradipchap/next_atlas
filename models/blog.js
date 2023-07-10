@@ -3,16 +3,21 @@ import { Schema, model, models } from "mongoose";
 const BlogSchema = new Schema({
   userid: {
     type: Schema.Types.ObjectId,
-    who: "User",
+    ref: "User",
   },
   title: {
     type: String,
-    required: [true, "Prompt is required."],
+    required: [true, "title is required."],
   },
   description: {
     type: String,
-    required: [true, "Tag is required."],
+    required: [true, "description is required."],
   },
+  blogid:{
+    type:Schema.Types.ObjectId,
+    required:true
+
+  }
 });
 
 const Blog = models.Blog || model("Blog", BlogSchema);

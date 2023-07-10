@@ -33,6 +33,7 @@ const handler = NextAuth({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
             image: profile.picture,
+
           });
         }
 
@@ -42,7 +43,8 @@ const handler = NextAuth({
         return false
       }
     },
-  }
+  },
+  
 })
 
 export { handler as GET, handler as POST }

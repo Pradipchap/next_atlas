@@ -9,7 +9,7 @@ export default function Blogs() {
       const data = await fetch("/api/blogs");
       const parseddata = await data.json();
       setdocuments(parseddata);
-      console.log(`dosuments are, ${documents}`)
+      console.log(`dosuments are, ${JSON.stringify(parseddata[0])}`)
     };
     getDocuments()
   }, []);
@@ -20,7 +20,7 @@ export default function Blogs() {
     <div className="allblogs">
       {documents.map((element) => {
         return (
-          <BlogCard title={element.title} description={element.description} />
+          <BlogCard title={element.title} description={element.description} userid={element.userid} blogid={element._id} />
         );
       })}
     </div>

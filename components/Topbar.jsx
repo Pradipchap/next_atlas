@@ -48,7 +48,9 @@ const Topbar = () => {
           </span>
         </div>
       ) : (
-        <button type="button" className="cap" onClick={() => signIn()}>
+        <button type="button" className="cap" onClick={() =>{ signIn()
+        
+        handleToggleDropdown(false)}}>
           Login
         </button>
       )}
