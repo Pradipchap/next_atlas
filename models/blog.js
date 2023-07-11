@@ -13,11 +13,7 @@ const BlogSchema = new Schema({
     type: String,
     required: [true, "description is required."],
   },
-  blogid:{
-    type:Schema.Types.ObjectId,
-    required:true
-
-  }
+  
 });
 
 const Blog = models.Blog || model("Blog", BlogSchema);

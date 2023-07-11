@@ -1,0 +1,89 @@
+.editor-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .editor-container {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .editor-container .ce-block {
+    padding: 10px;
+  }
+  
+  .editor-container .ce-toolbar__actions {
+    background-color: #f5f5f5;
+  }
+  
+  .editor-container .ce-toolbar__actions button {
+    padding: 6px 12px;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .editor-container .ce-toolbar__actions button:hover {
+    background-color: #eee;
+  }
+  
+  .editor-container .ce-toolbar__actions .ce-inline-tool--focused button {
+    background-color: #eee;
+  }
+  
+  .editor-container .ce-block__content {
+    padding-top: 10px;
+  }
+  
+  .editor-container .ce-paragraph,
+  .editor-container .ce-header {
+    margin-bottom: 10px;
+  }
+  
+  .editor-container .ce-paragraph:last-child,
+  .editor-container .ce-header:last-child {
+    margin-bottom: 0;
+  }
+  
+  .editor-container .ce-image {
+    margin-bottom: 10px;
+  }
+  
+  .editor-container .ce-image__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .editor-container .ce-image__container img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .editor-container .ce-list {
+    margin-bottom: 10px;
+  }
+  
+  .editor-container .ce-list__item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .editor-container .ce-checklist {
+    margin-bottom: 10px;
+  }
+  
+  .editor-container .ce-checklist__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .editor-container .ce-checklist__item input[type='checkbox'] {
+    margin-right: 5px;
+  }
+  

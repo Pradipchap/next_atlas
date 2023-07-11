@@ -4,11 +4,16 @@ import Form from "@/components/Form";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
+import BlogEditor, { Blogarea } from "@components/blogarea";
+import BlogCard from "@components/Blogcard";
+
 const Create = async () => {
   const router = useRouter();
   const { data: session } = useSession({
-    required:true,
-    onUnauthenticated(){redirect("/?callbackUrl=/create")}
+    required: true,
+    onUnauthenticated() {
+      redirect("/?callbackUrl=/create");
+    },
   });
   const createBlog = async (data) => {
     console.log(data);
@@ -22,18 +27,25 @@ const Create = async () => {
           userid: session?.user.id,
           title: data.title,
           description: data.description,
-         
         }),
       });
       await console.log(res);
-router.push("/")
+      if (res.ok)
+      router.push("/");
+      else
+      alert(res.statusText)
     } catch (error) {
       alert(` error while submitting ${error}`);
       console.log(error);
     }
   };
 
-  return <Form createBlog={createBlog} />;
+  return (
+    <div className="bg-red-500 mt-48 mx-auto">
+      {/* <BlogEditor/> */}
+      <Form createBlog={createBlog} />
+    </div>
+  );
 };
 
 export default Create;

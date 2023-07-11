@@ -1,6 +1,6 @@
 import React from "react";
 
-const BlogCard = ({ title ,description,userid,blogid}) => {
+const BlogCard = ({ title ,description,userid,_id,updateDoc}) => {
   return (
     <a
       href="#"
@@ -19,7 +19,8 @@ const BlogCard = ({ title ,description,userid,blogid}) => {
           {description}
         </p>
       </div>
-      <p>{blogid}</p>
+      <p>{_id}</p>
+      <button onClick={()=>updateDoc(_id)}>Update the document</button>
     </a>
   );
 };

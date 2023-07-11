@@ -57,6 +57,7 @@ const Topbar = () => {
       {handleToggleDropdown && (
         <div className="bg-slate-500  absolute top-14 right-8 py-3 px-3 flex flex-col gap-2 justify-start items-start ">
           <p className="email">{session?.user.email}</p>
+          <Link href="/blogs/myblogs" className="myblogs">My Blogs</Link>
           <button
             type="button"
             className="bg-black rounded-full px-3 py-2 text-xs"

@@ -6,8 +6,18 @@ import Image from "next/image";
 import { signIn, signOut, getProviders } from "next-auth/react";
 import { useEffect, useState } from "react";
 import "@styles/navstyles.css"
-
+import { useRouter } from "next/navigation";
 export const Nav = () => {
+  const [handleToggleDropdown, sethandleToggleDropdown] = useState(false);
+  const router = useRouter();
+
+  const handlelogout = () => {
+    sethandleToggleDropdown(false)
+    signOut(),
+
+    
+    router.push("/");
+  };
   const navref = useRef();
   const menubarRef=useRef()
   //state of scrolling is downward or upward
@@ -39,33 +49,32 @@ export const Nav = () => {
 
   
 
-  //start of window scroll property
+  // start of window scroll property
+  // let prevScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+  // // Event listener for scroll event
+  // window.addEventListener("scroll", function () {
+  //   // Get the current scroll position
+  //   var currentScrollPos =
+  //     window.pageYOffset || document.documentElement.scrollTop;
 
-  let prevScrollPos = window.pageYOffset || document.documentElement.scrollTop;
-  // Event listener for scroll event
-  window.addEventListener("scroll", function () {
-    // Get the current scroll position
-    var currentScrollPos =
-      window.pageYOffset || document.documentElement.scrollTop;
+  //   // Check if scrolling down
+  //   if (currentScrollPos > prevScrollPos) {
+  //     console.log("Scrolling down");
+  //     console.log(` current scroll ${currentScrollPos}`);
+  //     if (currentScrollPos > 150) setisdown(true);
+  //     else {
+  //       setisdown(false);
+  //     }
+  //     // ref.current.style.backgroundColor = "red";
+  //   } else {
+  //     console.log("scrolling up");
+  //     // setisdown(false);
+  //     // ref.current.style.backgroundColor = "black";
+  //   }
 
-    // Check if scrolling down
-    if (currentScrollPos > prevScrollPos) {
-      console.log("Scrolling down");
-      console.log(` current scroll ${currentScrollPos}`);
-      if (currentScrollPos > 150) setisdown(true);
-      else {
-        setisdown(false);
-      }
-      // ref.current.style.backgroundColor = "red";
-    } else {
-      console.log("scrolling up");
-      // setisdown(false);
-      // ref.current.style.backgroundColor = "black";
-    }
-
-    // Update the previous scroll position
-    prevScrollPos = currentScrollPos;
-  });
+  //   // Update the previous scroll position
+  //   prevScrollPos = currentScrollPos;
+  // });
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -76,13 +85,58 @@ export const Nav = () => {
           <nav
             className={`navbar ${
               isdown ? "down" : "up"
-            } flex bg-black w-max justify-center py-4 rounded-full  px-5 gap-5 text-white items-center my-5 m-auto fixed top-12`}
+            } flex bg-black justify-between py-4  px-5  text-white items-center  m-auto fixed top-6 w-full`}
             ref={navref}
           >
+            <div className="flex justify-center items-center gap-5">
             <Link href="/">Home</Link>
-            {session?.user && <Link href="/create">create</Link>}
+            {session?.user && (<Link href="/create">create</Link>,
+            <Link href="/blogs/myblogs">my blogs</Link>)}
             <Link href="/blogs">Blogs</Link>
             <a href="#navbar">Contact us</a>
+            
+            </div>
+        <div className="">
+        {session ? (
+        <div className="flex gap-2  items-center">
+          <p className="capitalize">{session.user.name}</p>
+          <span
+            onClick={() =>
+              sethandleToggleDropdown(
+                (handleToggleDropdown) => !handleToggleDropdown
+              )
+            }
+          >
+            <Image
+              src={session.user.image}
+              className="rounded-full"
+              width={40}
+              height={40}
+              alt="profile-photo"
+            />
+          </span>
+        </div>
+      ) : (
+        <button type="button" className="cap" onClick={() =>{ signIn()
+        
+        sethandleToggleDropdown(false)}}>
+          Login
+        </button>
+      )}
+        </div>
+      {handleToggleDropdown && (
+        <div className="bg-slate-500  absolute top-14 right-8 py-3 px-3 flex flex-col gap-2 justify-start items-start ">
+          <p className="email">{session?.user.email}</p>
+          <Link href="/blogs/myblogs" className="myblogs">My Blogs</Link>
+          <button
+            type="button"
+            className="bg-black rounded-full px-3 py-2 text-xs"
+            onClick={handlelogout}
+          >
+            Sign Out
+          </button>
+        </div>
+      )}
           </nav>
         ) : (
           <div
@@ -101,6 +155,7 @@ export const Nav = () => {
           </div>
         )
       }
+
     </div>
   );
 };

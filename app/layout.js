@@ -2,7 +2,7 @@ import Provider from "@/components/provider";
 import "./globals.css";
 
 import { Nav } from "@/components/Nav.js";
-import Topbar from "@/components/Topbar";
+// import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Provider>
-          <Topbar/>
+          {/* <Topbar/> */}
           <Nav />
           {children}
           <Footer/>
