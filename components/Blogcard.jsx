@@ -1,9 +1,12 @@
+
+"use client"
 import React from "react";
 
-const BlogCard = ({ title ,description,userid,_id,updateDoc}) => {
+const BlogCard = ({ title ,_id,}) => {
+  const  description="dfs";const userid='43dd'
   return (
     <a
-      href="#"
+      href={`Blogs/${_id}`}
       className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
     >
       <img
@@ -20,7 +23,7 @@ const BlogCard = ({ title ,description,userid,_id,updateDoc}) => {
         </p>
       </div>
       <p>{_id}</p>
-      <button onClick={()=>updateDoc(_id)}>Update the document</button>
+      {/* <button onClick={()=>update(_id)}>Update the document</button> */}
     </a>
   );
 };

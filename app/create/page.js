@@ -4,8 +4,9 @@ import Form from "@/components/Form";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
-import BlogEditor, { Blogarea } from "@components/blogarea";
+
 import BlogCard from "@components/Blogcard";
+import BlogEditor from "@components/blogarea";
 
 const Create = async () => {
   const router = useRouter();
@@ -25,8 +26,9 @@ const Create = async () => {
         method: "POST",
         body: JSON.stringify({
           userid: session?.user.id,
-          title: data.title,
-          description: data.description,
+          // title: data.title,
+          // description: data.description,
+          content:data
         }),
       });
       await console.log(res);
@@ -43,7 +45,7 @@ const Create = async () => {
   return (
     <div className="bg-red-500 mt-48 mx-auto">
       {/* <BlogEditor/> */}
-      <Form createBlog={createBlog} />
+      <BlogEditor createBlog={createBlog} />
     </div>
   );
 };

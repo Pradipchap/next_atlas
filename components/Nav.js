@@ -91,8 +91,11 @@ export const Nav = () => {
             <div className="flex justify-center items-center gap-5">
             <Link href="/">Home</Link>
             {session?.user && (<Link href="/create">create</Link>,
-            <Link href="/blogs/myblogs">my blogs</Link>)}
-            <Link href="/blogs">Blogs</Link>
+            
+            )
+            }
+            <Link href="/Blogs">Blogs</Link>
+            <Link href="/editor">editor</Link>
             <a href="#navbar">Contact us</a>
             
             </div>
@@ -127,7 +130,8 @@ export const Nav = () => {
       {handleToggleDropdown && (
         <div className="bg-slate-500  absolute top-14 right-8 py-3 px-3 flex flex-col gap-2 justify-start items-start ">
           <p className="email">{session?.user.email}</p>
-          <Link href="/blogs/myblogs" className="myblogs">My Blogs</Link>
+          <Link href="/profile">Profile</Link>
+          <Link href="/profile/myblogs" className="myblogs">My Blogs</Link>
           <button
             type="button"
             className="bg-black rounded-full px-3 py-2 text-xs"

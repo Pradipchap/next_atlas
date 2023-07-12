@@ -2,12 +2,13 @@ import { connectToDB } from "@utils/database";
 import User from "@models/user";
 
 export const GET = async (request) => {
-    const userud=request.query.userid
+  // const { username } = request.query;
   try {
-    await connectToDB();
-    const userDetails = await new User.findOne({ email: email });
-    return new Response(JSON.stringify(userDetails), { status: 201 });
+    // await connectToDB();
+    // const userDetails = await User.findOne({ username: username });
+    // return new Response(JSON.stringify(userDetails), { status: 201 });
+    return new Response(JSON.stringify({title:"hello"}));
   } catch (error) {
-    return new Promise("eror", { status: 500 });
+    return new Response("error", { status: 500 });
   }
 };
