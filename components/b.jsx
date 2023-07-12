@@ -1,27 +1,32 @@
-
-import Blogsfeed from '@components/b'
-import React from 'react'
-import BlogCard from '@components/Blogcard';
-const getBlog=async()=>{
-  const res=await fetch('http:localhost:3000/api/blogs');
-  const parsed=await res.json()
-  return parsed
-}
+import Blogsfeed from "@components/b";
+import React from "react";
+import BlogCard from "@components/Blogcard";
+const getBlog = async () => {
+  const res = await fetch("http://localhost:3000/api/blogs",{cache:"no-store"});
+  const parsed = await res.json();
+  return parsed;
+};
 export default async function Blogpage() {
-  const blogs=await getBlog()
- 
-  
+  const blogs = await getBlog();
+  console.log('first')
+  console.log(blogs);
 
-  return blogs.map((element) => {
-    return (
-      <BlogCard
-        title={element.title}
-        // description={element.description}
-        // userid={element.userid}
-        _id={element._id}
-        // update={null}
-        
-      />
-    );
-  });
+  return (
+    <div className="mt-[20rem] bg-red-500">
+      {blogs.map((element) => {
+        return (
+          <BlogCard
+          key={element._id}
+            // title={element.title}
+            // description={element.description}
+            name={element.userid.name}
+            _id={element._id}
+            email={element.userid.email}
+            image={element.userid.image}
+            // update={null}
+          />
+        );
+      })}
+    </div>
+  );
 }

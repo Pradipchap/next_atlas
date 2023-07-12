@@ -36,6 +36,7 @@ export const Nav = () => {
   };
 
   const { data: session } = useSession();//fetches session data
+  // console.log(session?.user.name)
 
 
   const [menutoggle, setmenutoggle] = useState(false);//
@@ -85,7 +86,7 @@ export const Nav = () => {
           <nav
             className={`navbar ${
               isdown ? "down" : "up"
-            } flex bg-black justify-between py-4  px-5  text-white items-center  m-auto fixed top-6 w-full`}
+            } flex bg-black justify-between py-4  px-5  text-white items-center  m-auto fixed top-0 w-full`}
             ref={navref}
           >
             <div className="flex justify-center items-center gap-5">
@@ -95,7 +96,7 @@ export const Nav = () => {
             )
             }
             <Link href="/Blogs">Blogs</Link>
-            <Link href="/editor">editor</Link>
+
             <a href="#navbar">Contact us</a>
             
             </div>

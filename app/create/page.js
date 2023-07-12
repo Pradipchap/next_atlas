@@ -28,14 +28,12 @@ const Create = async () => {
           userid: session?.user.id,
           // title: data.title,
           // description: data.description,
-          content:data
+          content: data,
         }),
       });
       await console.log(res);
-      if (res.ok)
-      router.push("/");
-      else
-      alert(res.statusText)
+      if (res.ok) router.push("/");
+      else alert(res.statusText);
     } catch (error) {
       alert(` error while submitting ${error}`);
       console.log(error);
@@ -45,7 +43,7 @@ const Create = async () => {
   return (
     <div className="bg-red-500 mt-48 mx-auto">
       {/* <BlogEditor/> */}
-      <BlogEditor createBlog={createBlog} />
+      <BlogEditor createBlog={createBlog} readOnlyStatus={false} />
     </div>
   );
 };

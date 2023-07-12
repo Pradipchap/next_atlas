@@ -5,7 +5,7 @@ import { connectToDB } from "@utils/database";
   try {
     await connectToDB();
 
-    const blogs = await Blog.find({});
+    const blogs = await Blog.find({}).populate("userid");
 
     return new Response(JSON.stringify(blogs), { status: 200 });
   } catch (error) {
