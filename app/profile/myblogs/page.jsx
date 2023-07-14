@@ -1,14 +1,18 @@
-import Myblogpage from '@components/myblogpage'
 import React from 'react'
 
-export default function page() {
-  const update=async()=>{
-    "use server"
+export const getdata=async()=>{
+  const res=await fetch("http://localhost:3000/api/blogs/myblogs",{cache:"no-cache"})
+  const data=res.text();
+  return data
 
-  }
+}
+
+const page=async() =>{
+  const data=await getdata();
+
   return (
-    <div className='mt-[20rem]'>
-      <Myblogpage update={update}/>
-    </div>
+    <h1 className='mt-[20rem]'>{data}</h1>
+
   )
 }
+export default page

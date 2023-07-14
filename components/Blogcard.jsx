@@ -1,13 +1,21 @@
-
-"use client"
+"use client";
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
+const BlogCard = ({ _id, image, name, email, date, update, isOwnerOrNot }) => {
+  const router = useRouter();
 
-const BlogCard = ({  _id,image,name,email,date,update}) => {
-
+  const viewBlog = () => {
+    console.log(isOwnerOrNot);
+    router.push(`/blogs/${_id}`);
+    // router.push({
+    //   pathname: `/blogs/${_id}`,
+    //   query: { isOwnerOrNot: isOwnerOrNot },
+    // });
+  };
   return (
-    <a
-      href={`Blogs/${_id}`}
+    <div
+      onClick={viewBlog}
       className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
     >
       <Image
@@ -22,12 +30,12 @@ const BlogCard = ({  _id,image,name,email,date,update}) => {
           {name}
         </h5>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-{Date(date)}
+          {/* {Date(date)} */}
         </p>
       </div>
       <p>{_id}</p>
       {/* <button onClick={()=>update(_id)}>Update the document</button> */}
-    </a>
+    </div>
   );
 };
 

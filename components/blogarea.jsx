@@ -5,7 +5,7 @@ import Table from "@editorjs/table";
 import Checklist from "@editorjs/checklist";
 import Code from "@editorjs/code";
 import { useEffect, useState } from "react";
-const initializeEditor = async ({content,readOnlyStatus}) => {
+const initializeEditor = async ({ content, readOnlyStatus }) => {
   const editorInstance = new EditorJS({
     /**
      * Id of Element that should contain Editor instance
@@ -34,26 +34,31 @@ const initializeEditor = async ({content,readOnlyStatus}) => {
       },
     },
     placeholder: "lets write a blog",
-    readOnly:readOnlyStatus,
-    data:content
+    readOnly: readOnlyStatus,
+    data: content,
     //defaultBlock: 'myOwnParagraph'
     //changes the defaultblock
-    
   });
 
   return editorInstance;
 };
-export default function BlogEditor({createBlog,content="",readOnlyStatus=false}) {
+export default function BlogEditor({
+createOrModify,  content = "",
+  readOnlyStatus = false,
+}) {
   const [isEditorActive, setisEditorActive] = useState(false);
   const editorRef = useRef(null);
   useEffect(() => {
     const initialize = async () => {
-      const editorInstance = await initializeEditor({content,readOnlyStatus});
+      const editorInstance = await initializeEditor({
+        content,
+        readOnlyStatus,
+      });
       editorRef.current = editorInstance;
       setisEditorActive(true);
     };
 
-    initialize(content,readOnlyStatus);
+    initialize(content, readOnlyStatus);
 
     return () => {
       if (editorRef.current) {
@@ -62,12 +67,11 @@ export default function BlogEditor({createBlog,content="",readOnlyStatus=false})
     };
   }, []);
 
-  const submit = async() => {
-    
+  const submit = async () => {
     if (editorRef.current) {
       const savedData = await editorRef.current.save();
       // alert(JSON.stringify(savedData));
-      createBlog(savedData)
+      createOrModify(savedData);
     }
   };
 

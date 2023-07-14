@@ -1,8 +1,11 @@
 import React from "react";
 
-export default function Footer() {
+export default function Footer({ session }) {
   return (
-    <footer className=" bg-white rounded-lg shadow dark:bg-gray-900 m-4" id="navbar">
+    <footer
+      className=" bg-white rounded-lg shadow dark:bg-gray-900 m-4"
+      id="navbar"
+    >
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
@@ -11,7 +14,7 @@ export default function Footer() {
           >
             <img src="/next.svg" className="h-8 mr-3" alt="Pradip Chapagain" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              OSAC
+              {session?.user.name}
             </span>
           </a>
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">

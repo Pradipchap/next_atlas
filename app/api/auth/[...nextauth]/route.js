@@ -1,23 +1,21 @@
-import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
-import User from '@/models/user';
+import User from "@/models/user";
 // import { connectToDB } from '@utils/database';
-import { connectToDB } from '@/utils/database';
-
-const handler = NextAuth({
+import { connectToDB } from "@/utils/database";
+export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    })
+    }),
   ],
   callbacks: {
     async session({ session }) {
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
-      
 
       return session;
     },
@@ -34,21 +32,18 @@ const handler = NextAuth({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
             image: profile.picture,
-
           });
-        }
-        else{
-
+        } else {
         }
 
-        return true
+        return true;
       } catch (error) {
         console.log("Error checking if user exists: ", error.message);
-        return false
+        return false;
       }
     },
   },
-  
-})
+};
+const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

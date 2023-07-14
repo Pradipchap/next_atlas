@@ -7,7 +7,9 @@ import { signIn, signOut, getProviders } from "next-auth/react";
 import { useEffect, useState } from "react";
 import "@styles/navstyles.css"
 import { useRouter } from "next/navigation";
-export const Nav = () => {
+export const Nav = ({session}) => {
+
+  // const {data:session}=useSession()
   const [handleToggleDropdown, sethandleToggleDropdown] = useState(false);
   const router = useRouter();
 
@@ -35,8 +37,8 @@ export const Nav = () => {
     setisdown(false)
   };
 
-  const { data: session } = useSession();//fetches session data
-  // console.log(session?.user.name)
+ //fetches session data
+  console.log(session?.user.name)
 
 
   const [menutoggle, setmenutoggle] = useState(false);//
@@ -48,11 +50,16 @@ export const Nav = () => {
     })();
   }, []);
 
+  // useEffect(() => {
+  //   const { data: session } = useSession();
+  // }, [])
+  
+
   
 
   // start of window scroll property
   // let prevScrollPos = window.pageYOffset || document.documentElement.scrollTop;
-  // // Event listener for scroll event
+  // Event listener for scroll event
   // window.addEventListener("scroll", function () {
   //   // Get the current scroll position
   //   var currentScrollPos =
@@ -91,11 +98,12 @@ export const Nav = () => {
           >
             <div className="flex justify-center items-center gap-5">
             <Link href="/">Home</Link>
+
             {session?.user && (<Link href="/create">create</Link>,
             
             )
             }
-            <Link href="/Blogs">Blogs</Link>
+            <Link href="/blogs">Blogs</Link>
 
             <a href="#navbar">Contact us</a>
             
@@ -119,7 +127,26 @@ export const Nav = () => {
               alt="profile-photo"
             />
           </span>
+          {handleToggleDropdown && (
+                <div className="bg-slate-500  absolute top-14 right-8 py-3 px-3 flex flex-col gap-2 justify-start items-start ">
+                  <p className="email">{session?.user.email}</p>
+                  <Link href="/profile">Profile</Link>
+                  <p onClick={()=>{
+                    console.log("sesion onclickk nav",session.user.id)
+                    router.push(`/profile/${session?.user.id}`)
+                  }} className="myblogs">My Blogs</p>
+                  <button
+                    type="button"
+                    className="bg-black rounded-full px-3 py-2 text-xs"
+                    onClick={handlelogout}
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
         </div>
+
+
       ) : (
         <button type="button" className="cap" onClick={() =>{ signIn()
         
@@ -128,20 +155,7 @@ export const Nav = () => {
         </button>
       )}
         </div>
-      {handleToggleDropdown && (
-        <div className="bg-slate-500  absolute top-14 right-8 py-3 px-3 flex flex-col gap-2 justify-start items-start ">
-          <p className="email">{session?.user.email}</p>
-          <Link href="/profile">Profile</Link>
-          <Link href="/profile/myblogs" className="myblogs">My Blogs</Link>
-          <button
-            type="button"
-            className="bg-black rounded-full px-3 py-2 text-xs"
-            onClick={handlelogout}
-          >
-            Sign Out
-          </button>
-        </div>
-      )}
+
           </nav>
         ) : (
           <div
