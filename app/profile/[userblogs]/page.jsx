@@ -7,6 +7,7 @@ export default function page({ params }) {
     <Blogpage
       title="My Blogs"
       fetchUrl={`http://localhost:3000/api/blogs/myblogs?userid=${params.userblogs}`}
+
     />
   );
 }

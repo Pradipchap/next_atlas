@@ -5,7 +5,13 @@ import Table from "@editorjs/table";
 import Checklist from "@editorjs/checklist";
 import Code from "@editorjs/code";
 import { useEffect, useState } from "react";
-const initializeEditor = async ({ content, readOnlyStatus }) => {
+import { useSession } from "next-auth/react";
+const initializeEditor = async ({
+  content,
+  userid,
+  sessionid,
+  isFromCreatePage,
+}) => {
   const editorInstance = new EditorJS({
     /**
      * Id of Element that should contain Editor instance
@@ -34,8 +40,11 @@ const initializeEditor = async ({ content, readOnlyStatus }) => {
       },
     },
     placeholder: "lets write a blog",
-    readOnly: readOnlyStatus,
     data: content,
+
+    readOnly: isFromCreatePage ? false : userid === sessionid ? false : true, //if the user id of the blog is
+    // same as the session id then the user is the creator of the blog so he/she can edit it
+
     //defaultBlock: 'myOwnParagraph'
     //changes the defaultblock
   });
@@ -43,42 +52,69 @@ const initializeEditor = async ({ content, readOnlyStatus }) => {
   return editorInstance;
 };
 export default function BlogEditor({
-createOrModify,  content = "",
-  readOnlyStatus = false,
+  content = "",
+  userid,
+  isFromCreatePage = false,
+  isEditable = false,
+  createOrModify,
+  blogid
 }) {
   const [isEditorActive, setisEditorActive] = useState(false);
+
   const editorRef = useRef(null);
+  const { data: session } = useSession();
+  const sessionid = session.user.id;
+
+  console.log("contetn inside editor is", content);
   useEffect(() => {
     const initialize = async () => {
       const editorInstance = await initializeEditor({
         content,
-        readOnlyStatus,
+        userid,
+        isFromCreatePage,
+        sessionid,
       });
       editorRef.current = editorInstance;
+      // console.log("session id is ", sessionid, "blogsession id is ", userid);
       setisEditorActive(true);
     };
 
-    initialize(content, readOnlyStatus);
+    if (sessionid) {
+      initialize();
+    }
 
     return () => {
       if (editorRef.current) {
         editorRef.current.destroy();
       }
     };
-  }, []);
+  }, [sessionid]);
 
   const submit = async () => {
     if (editorRef.current) {
       const savedData = await editorRef.current.save();
-      // alert(JSON.stringify(savedData));
-      createOrModify(savedData);
+
+      alert(JSON.stringify(savedData));
+      alert(blogid)
+      createOrModify(blogid,savedData);
+      // createOrModify(savedData);
     }
   };
 
   return (
     <div className="flex flex-col justify-center items-center">
       <div id="editorjs" className=" w-full  border-black border"></div>
-      <button onClick={submit}>Submit</button>
+      {isFromCreatePage ? (
+        <button type="button" onClick={submit}>
+          Submit
+        </button>
+      ) : (
+        userid === sessionid && (
+          <button type="button" onClick={submit}>
+            Update
+          </button>
+        )
+      )}
     </div>
   );
 }

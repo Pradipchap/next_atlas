@@ -10,12 +10,7 @@ import BlogEditor from "@components/blogarea";
 
 const Create = async () => {
   const router = useRouter();
-  const { data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect("/?callbackUrl=/create");
-    },
-  });
+  const { data: session } = useSession();
   const createBlog = async (data) => {
     console.log(data);
     console.log(` value of session ${session.user.name}`);
@@ -41,9 +36,13 @@ const Create = async () => {
   };
 
   return (
-    <div className="bg-red-500 mt-48 mx-auto">
+    <div className=" mt-48 mx-auto">
       {/* <BlogEditor/> */}
-      <BlogEditor createBlog={createBlog} readOnlyStatus={false} />
+      <BlogEditor
+        createOrModify={createBlog}
+        isFromCreatePage={true}
+        isEditable={true}
+      />
     </div>
   );
 };
