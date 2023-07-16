@@ -1,6 +1,6 @@
 import Blogsfeed from "@components/Blogpage";
 import React from "react";
-import BlogCard from "@components/Blogcard";
+
 
 import { AuthOptions } from "next-auth";
 import Card from "./card";
@@ -32,11 +32,11 @@ export default async function Blogpage({ title, fetchUrl }) {
           return (
             <Card
               key={element._id}
-              title={element.userid._id}
-              // description={element.description}
+              title={element.title}
+              description={element.description}
               name={element.userid.username}
               blogid={element._id}
-              genre={element.userid.email}
+              genre={element.genre}
               image={element.userid.image}
               // update={null}
               isOwnerOrNot={false}

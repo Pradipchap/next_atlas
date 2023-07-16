@@ -13,16 +13,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function  RootLayout({ children }) {
-  const session=await getServerSession(authOptions)
-  console.log("layout session",session?.user.name)
+
+
   return (
     <html lang="en">
       <body>
-        <Provider session={session}>
+        <Provider >
           {/* <Topbar/> */}
-          <Nav session={session} />
+          <Nav  />
           {children}
-          <Footer session={session}/>
+          <Footer />
         </Provider>
       </body>
     </html>

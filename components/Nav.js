@@ -8,9 +8,16 @@ import { useEffect, useState } from "react";
 import "@styles/navstyles.css";
 import { useRouter } from "next/navigation";
 import NavLinks from "./navLinks";
-export const Nav = ({ session }) => {
-  // const {data:session}=useSession()
+export const Nav = () => {
+  const {data:session}=useSession()
   const [handleToggleDropdown, sethandleToggleDropdown] = useState(false);
+  const [isdown, setIsDown] = useState(false); //state of scrolling is downward or upward
+
+  //stores providers that are allowed in authentication
+  const [providers, setProviders] = useState(null);
+
+  //state for is menu opened or not
+  const [ismenuclose, setIsMenuClose] = useState(true);
   const router = useRouter();
 
   const handlelogout = () => {
@@ -19,19 +26,11 @@ export const Nav = ({ session }) => {
   };
   const navref = useRef();
   const menubarRef = useRef();
-  //state of scrolling is downward or upward
-  const [isdown, setisdown] = useState(false);
-
-  //stores providers that are allowed in authentication
-  const [providers, setProviders] = useState(null);
-
-  //state for is menu opened or not
-  const [ismenuclose, setismenuclose] = useState(true);
 
   //handles the transistion from menu click during scrolling
   const handleMenu = () => {
-    setismenuclose((ismenuclose) => !ismenuclose);
-    setisdown(false);
+    setIsMenuClose((ismenuclose) => !ismenuclose);
+    setIsDown(false);
   };
 
   //fetches session data
@@ -46,39 +45,40 @@ export const Nav = ({ session }) => {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   const { data: session } = useSession();
-  // }, [])
+  useEffect(() => {
+    let prevScrollPos =
+      window.pageYOffset || document.documentElement.scrollTop;
+    window.addEventListener("scroll", function () {
+      // Get the current scroll position
+      var currentScrollPos =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      // Check if scrolling down
+      if (currentScrollPos > prevScrollPos) {
+        console.log("Scrolling down");
+        console.log(` current scroll ${currentScrollPos}`);
+        if (currentScrollPos > 150) setIsDown(true);
+        else {
+          setIsDown(false);
+        }
+        // ref.current.style.backgroundColor = "red";
+      } else {
+        console.log("scrolling up");
+        // setIsDown(false);
+        // ref.current.style.backgroundColor = "black";
+      }
+
+      // Update the previous scroll position
+      prevScrollPos = currentScrollPos;
+    });
+  }, []);
 
   // start of window scroll property
-  let prevScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
   // Event listener for scroll event
-  window.addEventListener("scroll", function () {
-    // Get the current scroll position
-    var currentScrollPos =
-      window.pageYOffset || document.documentElement.scrollTop;
-
-    // Check if scrolling down
-    if (currentScrollPos > prevScrollPos) {
-      console.log("Scrolling down");
-      console.log(` current scroll ${currentScrollPos}`);
-      if (currentScrollPos > 150) setisdown(true);
-      else {
-        setisdown(false);
-      }
-      // ref.current.style.backgroundColor = "red";
-    } else {
-      console.log("scrolling up");
-      // setisdown(false);
-      // ref.current.style.backgroundColor = "black";
-    }
-
-    // Update the previous scroll position
-    prevScrollPos = currentScrollPos;
-  });
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mb-20">
       {
         //menu
         //

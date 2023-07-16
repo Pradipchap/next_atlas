@@ -14,7 +14,7 @@ const getblog = async (id) => {
   return data;
 };
 
-export const updateBlog = async ( blogid, savedData ) => {
+export const updateBlog = async ( blogid, savedData ,title,genre,description) => {
   "use server";
   console.log("blogid is",blogid,'content',JSON.stringify(savedData))
   try {
@@ -24,6 +24,9 @@ export const updateBlog = async ( blogid, savedData ) => {
       body: JSON.stringify({
         _id: blogid,
         content: savedData,
+        title:title,
+        genre:genre,
+        description:description
       }),
     });
 

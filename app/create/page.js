@@ -1,19 +1,19 @@
 "use client";
 import React from "react";
-import Form from "@/components/Form";
+
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 
-import BlogCard from "@components/Blogcard";
+
 import BlogEditor from "@components/blogarea";
 
 const Create = async () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const createBlog = async (data) => {
-    console.log(data);
-    console.log(` value of session ${session.user.name}`);
+  const createBlog = async (data,title,genre,description) => {
+    console.log(title);
+    console.log(` value of session ${session?.user.name}`);
     try {
       //upload to mongodb database
 
@@ -21,9 +21,12 @@ const Create = async () => {
         method: "POST",
         body: JSON.stringify({
           userid: session?.user.id,
-          // title: data.title,
-          // description: data.description,
+          title:title,
+          genre:genre,
+          description:description,
           content: data,
+
+          
         }),
       });
       await console.log(res);
@@ -36,7 +39,7 @@ const Create = async () => {
   };
 
   return (
-    <div className=" mt-48 mx-auto">
+    <div className=" mx-auto">
       {/* <BlogEditor/> */}
       <BlogEditor
         createOrModify={createBlog}

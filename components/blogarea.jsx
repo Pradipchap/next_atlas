@@ -6,6 +6,10 @@ import Checklist from "@editorjs/checklist";
 import Code from "@editorjs/code";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import SimpleImage from "@editorjs/simple-image";
+import Button from "./Button";
+import CreateBlog from "./CreatePage";
+
 const initializeEditor = async ({
   content,
   userid,
@@ -38,6 +42,11 @@ const initializeEditor = async ({
         class: Code,
         inlineToolbar: true,
       },
+      image: SimpleImage,
+      // image:{
+      //   class:Image,
+      //   // inlineToolbar:true
+      // }
     },
     placeholder: "lets write a blog",
     data: content,
@@ -57,10 +66,10 @@ export default function BlogEditor({
   isFromCreatePage = false,
   isEditable = false,
   createOrModify,
-  blogid
+  blogid,
 }) {
   const [isEditorActive, setisEditorActive] = useState(false);
-
+  const [title, setTitle] = useState("");
   const editorRef = useRef(null);
   const { data: session } = useSession();
   const sessionid = session.user.id;
@@ -90,31 +99,24 @@ export default function BlogEditor({
     };
   }, [sessionid]);
 
-  const submit = async () => {
+  const submit = async ( title, genre, desctiption ) => {
     if (editorRef.current) {
       const savedData = await editorRef.current.save();
-
-      alert(JSON.stringify(savedData));
-      alert(blogid)
-      createOrModify(blogid,savedData);
+      alert("hello");
+      alert("output"+JSON.stringify({ title, desctiption, genre }));
+      if (isFromCreatePage)
+        createOrModify(savedData, title, genre, desctiption);
+      else createOrModify(blogid, savedData, title, genre, desctiption);
       // createOrModify(savedData);
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div id="editorjs" className=" w-full  border-black border"></div>
-      {isFromCreatePage ? (
-        <button type="button" onClick={submit}>
-          Submit
-        </button>
-      ) : (
-        userid === sessionid && (
-          <button type="button" onClick={submit}>
-            Update
-          </button>
-        )
-      )}
-    </div>
+    <CreateBlog
+      isFromCreatePage={isFromCreatePage}
+      submit={submit}
+      userid={userid}
+      sessionid={sessionid}
+    />
   );
 }

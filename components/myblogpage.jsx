@@ -1,11 +1,11 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import BlogCard from "./Blogcard";
+
 import { useEffect, useState } from "react";
 
 const Myblogpage = ({ update }) => {
-  const [blogs, setblogs] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Myblogpage = ({ update }) => {
       );
       const data = await res.json();
       console.log("my blogs", data);
-      setblogs(data);
+      setBlogs(data);
     };
     if (session?.user.id) sendBlog();
   }, [session?.user.id]);
