@@ -17,6 +17,11 @@ const BlogSchema = new Schema({
     type: String,
     required: [true, "description is required."],
   },
+  date:{
+    type:Date,
+    required:[true,"date is required"],
+    default:Date.now()
+  },
 
   content:{
     type:Schema.Types.Mixed,

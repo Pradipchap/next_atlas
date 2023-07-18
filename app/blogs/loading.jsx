@@ -5,8 +5,9 @@ import PhotoSkeleton from "@components/smallcomponents/skeleton/PhotoSkeleton";
 import React from "react";
 
 export default function loading() {
+  
   return (
-    <div className=" flex  flex-row gap-2 justify-center items-start">
+    <div className=" flex  flex-row gap-2 justify-start items-start">
       <div className="w-[50rem] gap-5 flex flex-col">
         <BlogCardSkeleton />
         <BlogCardSkeleton />

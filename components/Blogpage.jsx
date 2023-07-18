@@ -5,6 +5,7 @@ import { AuthOptions } from "next-auth";
 import Card from "./card";
 import Divider from "./smallcomponents/divider";
 
+//functio to fetch blogs and return blog
 const getBlog = async (fetchUrl) => {
   console.log("fetchurl is ", fetchUrl);
   try {
@@ -41,7 +42,7 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
                 blogid={element._id}
                 genre={element.genre}
                 image={element.userid.image}
-
+                date={element.date}
                 isOwnerOrNot={false}
               />
             );
@@ -52,7 +53,6 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
       </div>
     </section>
   );
-})
+});
 
-
-export default Blogpage
+export default Blogpage;

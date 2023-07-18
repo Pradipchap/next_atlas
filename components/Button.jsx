@@ -1,11 +1,13 @@
 import React from "react";
 
 export default function Button({ name, operation, variant = "create" }) {
-    const btnfunction=()=>{
-        operation()
 
-    }
-    
+
+  const btnfunction = () => {
+    //performs function passed down as props
+    operation();
+  };
+
   return (
     <button
       type="button"

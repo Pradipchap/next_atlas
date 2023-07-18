@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Dropdown({value,operation}) {
+export default function Dropdown({ value, operation }) {
   // const [value, setValue] = useState("")
   const handleChange = (e) => {
-operation(e.target.value)
+    operation(e.target.value);
   };
 
   return (

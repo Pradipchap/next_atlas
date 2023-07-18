@@ -6,7 +6,7 @@ export const POST = async (request) => {
 
     try {
         await connectToDB();
-        const newBlog = new Blog({  userid,title,genre,description, content, });
+        const newBlog = new Blog({  userid,title,genre,description, content,date:new Date() });
 
         await newBlog.save();
         return new Response(JSON.stringify(newBlog), { status: 201 })

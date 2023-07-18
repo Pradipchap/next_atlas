@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
 import { signIn, signOut, getProviders } from "next-auth/react";
 import { useEffect, useState } from "react";
 import "@styles/navstyles.css";
@@ -11,6 +12,7 @@ import NavLinks from "./navLinks";
 import { IoCreateOutline } from "react-icons/io5";
 import Profilecard from "./smallcomponents/Profilecard";
 import Menu from "./smallcomponents/Menu";
+import Logo from "@public/blogit.png";
 export const Nav = () => {
   const { data: session } = useSession();
   const [handleToggleDropdown, sethandleToggleDropdown] = useState(false);
@@ -25,7 +27,8 @@ export const Nav = () => {
 
   const handlelogout = () => {
     sethandleToggleDropdown(false);
-    signOut(); router.push("/");
+    signOut();
+    router.push("/");
   };
   const navref = useRef();
   const menubarRef = useRef();
@@ -37,7 +40,7 @@ export const Nav = () => {
   };
 
   //fetches session data
-  console.log(session?.user.name);
+  // console.log(session?.user.name);
 
   const [menutoggle, setmenutoggle] = useState(false); //
 
@@ -58,15 +61,15 @@ export const Nav = () => {
 
       // Check if scrolling down
       if (currentScrollPos > prevScrollPos) {
-        console.log("Scrolling down");
-        console.log(` current scroll ${currentScrollPos}`);
+        // console.log("Scrolling down");
+        // console.log(` current scroll ${currentScrollPos}`);
         if (currentScrollPos > 150) setIsDown(true);
         else {
           setIsDown(false);
         }
         // ref.current.style.backgroundColor = "red";
       } else {
-        console.log("scrolling up");
+        // console.log("scrolling up");
         // setIsDown(false);
         // ref.current.style.backgroundColor = "black";
       }
@@ -89,11 +92,14 @@ export const Nav = () => {
           <nav
             className={`navbar ${
               isdown ? "down" : "up"
-            } flex bg-white justify-between py-4  px-5  text-black text-md items-center  m-auto fixed top-0 w-full border-b`}
+            } flex bg-white justify-between py-4  px-5  text-black text-md items-center  m-auto fixed top-0 w-full`}
             ref={navref}
           >
             <div className="flex justify-center items-center gap-5">
-              <NavLinks path="/" name="Home" />
+              <NavLinks
+                path="/"
+                name={<Image src={Logo} alt="logo" width={30} height={30} />}
+              />
 
               <NavLinks path="/blogs" name="Blogs" />
 
@@ -149,7 +155,6 @@ export const Nav = () => {
           </nav>
         ) : (
           <Menu handleMenu={handleMenu} menubarRef={menubarRef} />
-
         )
       }
     </div>

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Menu({handleMenu,menubarRef}) {
+export default function Menu({handleMenu,menubarRef,forNavbar=false}) {
   return (
     <div
-    className="menu bg-black px-4 py-3 fixed top-20 right-2 mx-5 flex justify-between items-center gap-2 rounded-3xl"
+    className={`menu ${!forNavbar?"bg-black":"bg-white"} px-4 py-3 fixed top-20 right-2 mx-5 flex justify-between items-center gap-2 rounded-3xl`}
     onClick={handleMenu}
     ref={menubarRef}
   >
@@ -12,7 +12,7 @@ export default function Menu({handleMenu,menubarRef}) {
       <div className="m1 bg-white w-6 h-0.5 rounded-sm"></div>
       <div className="m2 bg-white w-6 h-0.5 rounded-sm"></div>
     </div>
-    <p className="menutext text-white">Menu</p>
+{!forNavbar&&    <p className="menutext text-white">Menu</p>}
   </div>
   )
 }

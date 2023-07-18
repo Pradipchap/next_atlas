@@ -2,6 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Divider from "./smallcomponents/divider";
 export default function Card({
   blogid,
   title,
@@ -10,12 +11,15 @@ export default function Card({
   image,
   description,
   update,
+  date,
   // tags,
   path,
 }) {
   const router = useRouter();
+
+  //function to navigate to individual blog page..
+  //blogid as the params for dynamic routes
   const viewBlog = () => {
-    // console.log(isOwnerOrNot);
     router.push(`/blogs/${blogid}`);
   };
   const tags = [1, 2, 3, 4];
@@ -57,13 +61,13 @@ export default function Card({
           </div>
 
           <p className="mt-1 text-sm font-normal text-skin-base leading-5">
-            {description.slice(0,100)+"..."}
+            {description.slice(0, 100) + "..."}
           </p>
 
           <div className="mt-3 flex items-center font-sans">
             <div className="shrink-0">
               <div>
-                <span className="sr-only">John Doe</span>
+                <span className="sr-only">{name}</span>
 
                 <img
                   className="h-10 w-10 rounded-full"
@@ -79,7 +83,7 @@ export default function Card({
               </div>
 
               <div className="flex space-x-1 text-sm text-skin-muted">
-                <time datetime="2022-02-01">1 Feb, 2022</time>
+                <time datetime="2022-02-01">{date}</time>
 
                 <span aria-hidden="true">·</span>
 
@@ -89,6 +93,7 @@ export default function Card({
           </div>
         </div>
       </div>
+      <Divider horizontal={true} />
     </div>
   );
 }

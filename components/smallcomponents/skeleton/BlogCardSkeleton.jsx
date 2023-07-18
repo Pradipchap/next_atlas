@@ -13,7 +13,7 @@ export default function BlogCardSkeleton() {
         <DescriptionSkeleton />
         <div className="flex gap-3 justify-center items-center">
           <CircleSkeleton />
-          <TitleSkeleton/>
+          <TitleSkeleton />
         </div>
       </div>
     </div>

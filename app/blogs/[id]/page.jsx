@@ -1,6 +1,8 @@
-// "use client"
 import BlogEditor from "@components/blogarea";
 import React from "react";
+
+//this function accepts blogid as its arguments and return a single document
+// associated with the blogid
 const getblog = async (id) => {
   console.log("id is ", id);
   const res = await fetch(
@@ -8,30 +10,38 @@ const getblog = async (id) => {
     { cache: "no-cache" }
   );
 
-  // console.log(res);
   const data = await res.json();
 
   return data;
 };
 
-export const updateBlog = async ( blogid, savedData ,title,genre,description) => {
+
+//function to update the blog if user is the creator of the blog
+//it is marked as "use server" because functions cannot be directly passed from server components to client
+
+export const updateBlog = async (
+  blogid,
+  savedData,
+  title,
+  genre,
+  description
+) => {
   "use server";
-  console.log("blogid is",blogid,'content',JSON.stringify(savedData))
+  console.log("blogid is", blogid, "content", JSON.stringify(savedData));
   try {
     const res = await fetch("http://localhost:3000/api/blogs/modify", {
-
       method: "POST",
       body: JSON.stringify({
         _id: blogid,
         content: savedData,
-        title:title,
-        genre:genre,
-        description:description
+        title: title,
+        genre: genre,
+        description: description,
       }),
     });
 
     const output = await res.json();
-    console.log("ipdated is",JSON.stringify(output));
+    console.log("ipdated is", JSON.stringify(output));
     return true;
   } catch (error) {
     console.log("faileddd");
@@ -41,6 +51,7 @@ export const updateBlog = async ( blogid, savedData ,title,genre,description) =>
   }
 };
 
+//returns the single blog page
 export default async function page({ params }) {
   console.log("params id is", JSON.stringify(params));
   const blog = await getblog(params.id);
@@ -53,6 +64,11 @@ export default async function page({ params }) {
       {blog ? (
         <BlogEditor
           content={blog.content}
+          titleGenreDescription={{
+            title: blog.title,
+            genre: blog.genre,
+            description: blog.description,
+          }}
           blogid={blog._id}
           userid={blog.userid._id}
           isFromCreatePage={false}

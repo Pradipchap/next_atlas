@@ -1,11 +1,13 @@
 "use client";
+//made client component as issues related to multiple rerendering were found
 import React, { memo } from "react";
 import { useState, useEffect } from "react";
 import Divider from "./smallcomponents/divider";
 import Card from "./card";
 const SideBlog = ({ fetchUrl }) => {
-  const [blogs, setBlogs] = useState({});
+  const [blogs, setBlogs] = useState({});//state for the  total blogs collection
 
+  //functin that fetches the blog
   const getBlogs = async () => {
     try {
       const res = await fetch(fetchUrl, { cache: "no-cache" });
@@ -16,6 +18,7 @@ const SideBlog = ({ fetchUrl }) => {
     }
   };
 
+  //to fetch blogs whenever the genre changes
   useEffect(() => {
     getBlogs();
   }, [fetchUrl]);
@@ -25,7 +28,7 @@ const SideBlog = ({ fetchUrl }) => {
       <h1 class="  font-sans text-xl">{"title"}</h1>
       <Divider horizontal={true} />
       <div class="flex flex-wrap gap-8 mt-8">
-        {blogs.status ? (
+        {blogs.data ? (
           blogs.data.map((element) => {
             return (
               <Card
@@ -41,7 +44,7 @@ const SideBlog = ({ fetchUrl }) => {
             );
           })
         ) : (
-          <h1>sorry unable to fetch try again</h1>
+          <h1>sorry no data</h1>
         )}
       </div>
     </section>

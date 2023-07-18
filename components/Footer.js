@@ -3,13 +3,13 @@ import React from "react";
 export default function Footer({ session }) {
   return (
     <footer
-      className=" bg-white rounded-lg shadow dark:bg-gray-900 m-4"
+      className=" bg-black rounded-lg shadow  m-4 mt-[10rem]"
       id="navbar"
     >
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
-            href="https://flowbite.com/"
+            href="https://pradipchapagain.com.np"
             className="flex items-center mb-4 sm:mb-0"
           >
             <img src="/next.svg" className="h-8 mr-3" alt="Pradip Chapagain" />
@@ -43,7 +43,7 @@ export default function Footer({ session }) {
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
           © 2023{" "}
-          <a href="https://flowbite.com/" className="hover:underline">
+          <a href="https://pradipchapagain.com.np" className="hover:underline">
             Pradip Chapagain™
           </a>
           . All Rights Reserved.
