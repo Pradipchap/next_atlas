@@ -3,11 +3,20 @@ import React, { useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import Table from "@editorjs/table";
 import Checklist from "@editorjs/checklist";
-import Code from "@editorjs/code";
+import  CodeTool  from "@editorjs/code";
+import { InlineCode } from "@editorjs/inline-code";
+
+import  Embed  from "@editorjs/embed";
+import { NestedList } from "@editorjs/nested-list";
+import { SimpleImage } from "@editorjs/simple-image";
+import { TextVariantTune } from "@editorjs/text-variant-tune";
+import { Marker } from "@editorjs/marker";
+import { List } from "@editorjs/list";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import SimpleImage from "@editorjs/simple-image";
+import { Warning } from "@editorjs/warning";
 import Button from "./Button";
+
 import CreateBlog from "./CreatePage";
 
 const initializeEditor = async ({
@@ -36,13 +45,26 @@ const initializeEditor = async ({
       },
       table: {
         class: Table,
-        inlineToolbar: true,
+        inlineToolbar: false,
       },
       code: {
-        class: Code,
+        class: CodeTool,
         inlineToolbar: true,
       },
-      image: SimpleImage,
+      embed: {
+        class: Embed,
+        config: {
+          services: {
+            youtube: true,
+            coub: true
+          }
+        },inlineToolbar:true
+      },
+      // SimpleImage:{
+      //   class:SimpleImage,
+      //   inlineToolbar:true
+      // }
+
       // image:{
       //   class:Image,
       //   // inlineToolbar:true
@@ -70,9 +92,9 @@ export default function BlogEditor({
 }) {
   const [isEditorActive, setisEditorActive] = useState(false);
   const [title, setTitle] = useState("");
-  const editorRef = useRef(null);
+  const editorRef = useRef();
   const { data: session } = useSession();
-  const sessionid = session.user.id;
+  const sessionid = session?.user.id;
 
   console.log("contetn inside editor is", content);
   useEffect(() => {
@@ -99,11 +121,11 @@ export default function BlogEditor({
     };
   }, [sessionid]);
 
-  const submit = async ( title, genre, desctiption ) => {
+  const submit = async (title, genre, desctiption) => {
     if (editorRef.current) {
       const savedData = await editorRef.current.save();
       alert("hello");
-      alert("output"+JSON.stringify({ title, desctiption, genre }));
+      alert("output" + JSON.stringify({ title, desctiption, genre }));
       if (isFromCreatePage)
         createOrModify(savedData, title, genre, desctiption);
       else createOrModify(blogid, savedData, title, genre, desctiption);

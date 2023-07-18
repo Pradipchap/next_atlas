@@ -1,6 +1,6 @@
 import Blogpage from "@components/Blogpage";
-import Loadingteset from "@components/loadingteset";
-import React, { Suspense } from "react";
+
+import React from "react";
 
 export default function page({ params }) {
   //it gets params from navbar after clicking myblogs and sends the api url along with the user ID

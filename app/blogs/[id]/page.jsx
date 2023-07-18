@@ -49,7 +49,7 @@ export default async function page({ params }) {
   // console.log("query is", params.query);
 
   return (
-    <div className="mt-[20rem]">
+    <div className="">
       {blog ? (
         <BlogEditor
           content={blog.content}

@@ -8,8 +8,11 @@ import { useEffect, useState } from "react";
 import "@styles/navstyles.css";
 import { useRouter } from "next/navigation";
 import NavLinks from "./navLinks";
+import { IoCreateOutline } from "react-icons/io5";
+import Profilecard from "./smallcomponents/Profilecard";
+import Menu from "./smallcomponents/Menu";
 export const Nav = () => {
-  const {data:session}=useSession()
+  const { data: session } = useSession();
   const [handleToggleDropdown, sethandleToggleDropdown] = useState(false);
   const [isdown, setIsDown] = useState(false); //state of scrolling is downward or upward
 
@@ -22,7 +25,7 @@ export const Nav = () => {
 
   const handlelogout = () => {
     sethandleToggleDropdown(false);
-    signOut(), router.push("/");
+    signOut(); router.push("/");
   };
   const navref = useRef();
   const menubarRef = useRef();
@@ -86,13 +89,11 @@ export const Nav = () => {
           <nav
             className={`navbar ${
               isdown ? "down" : "up"
-            } flex bg-black justify-between py-4  px-5  text-white items-center  m-auto fixed top-0 w-full`}
+            } flex bg-white justify-between py-4  px-5  text-black text-md items-center  m-auto fixed top-0 w-full border-b`}
             ref={navref}
           >
             <div className="flex justify-center items-center gap-5">
               <NavLinks path="/" name="Home" />
-
-              {session?.user && <Link href="/create">create</Link>}
 
               <NavLinks path="/blogs" name="Blogs" />
 
@@ -100,7 +101,14 @@ export const Nav = () => {
             </div>
             <div className="">
               {session ? (
-                <div className="flex gap-2  items-center">
+                <div className="flex gap-5  items-center">
+                  <Link
+                    href="/create"
+                    className="flex gap-1 items-center justify-center animate-bounce"
+                  >
+                    <IoCreateOutline size={25} />
+                    Write
+                  </Link>
                   <p className="capitalize">{session.user.name}</p>
                   <span
                     onClick={() =>
@@ -118,26 +126,10 @@ export const Nav = () => {
                     />
                   </span>
                   {handleToggleDropdown && (
-                    <div className="bg-slate-500  absolute top-14 right-8 py-3 px-3 flex flex-col gap-2 justify-start items-start ">
-                      <p className="email">{session?.user.email}</p>
-                      <NavLinks path="/profile" name="profile" />
-                      <p
-                        onClick={() => {
-                          console.log("sesion onclickk nav", session.user.id);
-                          router.push(`/profile/${session?.user.id}`);
-                        }}
-                        className="myblogs"
-                      >
-                        My Blogs
-                      </p>
-                      <button
-                        type="button"
-                        className="bg-black rounded-full px-3 py-2 text-xs"
-                        onClick={handlelogout}
-                      >
-                        Sign Out
-                      </button>
-                    </div>
+                    <Profilecard
+                      session={session}
+                      handlelogout={handlelogout}
+                    />
                   )}
                 </div>
               ) : (
@@ -156,18 +148,8 @@ export const Nav = () => {
             </div>
           </nav>
         ) : (
-          <div
-            className="menu bg-black px-4 py-3 fixed top-20 right-2 mx-5 flex justify-between items-center gap-2 rounded-3xl"
-            onClick={handleMenu}
-            ref={menubarRef}
-          >
-            {/* {styles related to hover effect of menu is in navstyles.css } */}
-            <div className="menubar flex flex-col gap-2">
-              <div className="m1 bg-white w-6 h-0.5 rounded-sm"></div>
-              <div className="m2 bg-white w-6 h-0.5 rounded-sm"></div>
-            </div>
-            <p className="menutext text-white">Menu</p>
-          </div>
+          <Menu handleMenu={handleMenu} menubarRef={menubarRef} />
+
         )
       }
     </div>

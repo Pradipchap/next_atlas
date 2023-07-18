@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 export default function Card({
   blogid,
   title,
@@ -19,24 +20,75 @@ export default function Card({
   };
   const tags = [1, 2, 3, 4];
   return (
-    <article className="h-90 col-span-1 m-auto min-h-full cursor-pointer overflow-hidden rounded-lg pb-2 shadow-lg transition-transform duration-200 hover:translate-y-2">
-      <div onClick={viewBlog} className="block h-full w-full">
-        <img
-          className="max-h-40 w-full object-cover"
-          alt="featured image"
-          src={image}
-        />
-        <div className="w-full bg-white p-4">
-          <p className="text-md font-medium text-indigo-500">{blogid}</p>
-          <p className="mb-2 text-xl font-medium text-gray-800">{title}</p>
-          <p className="text-md font-light text-gray-400">{description}</p>
-          <div className="justify-starts mt-4 flex flex-wrap items-center">
-            <div className="mr-2 mt-1 rounded-2xl bg-blue-100 py-1.5 px-4 text-xs text-gray-600">
+    <div className="space-y-4 lg:grid lg:grid-cols-3 lg:items-start lg:gap-6 lg:space-y-0 ">
+      <div className="group ">
+        <div className="aspect-w-3 aspect-h-2">
+          <Image
+            className="object-cover shadow-lg rounded-lg group-hover:opacity-75 max-md:hidden"
+            src={image}
+            alt="Featured Photo"
+            width={200}
+            height={150}
+          />
+        </div>
+      </div>
+
+      <div className="sm:col-span-2 cursor-pointer" onClick={viewBlog}>
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
+            <span className="inline-flex items-center leading-none px-2.5 py-1.5 text-sm font-medium text-skin-inverted rounded-full border border-skin-input">
+              <svg
+                className="mr-1.5 h-2 w-2 brand-tutoriel"
+                fill="currentColor"
+                viewBox="0 0 8 8"
+              >
+                <circle cx="4" cy="4" r="3"></circle>
+              </svg>
               {genre}
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-2">
+          <div className="group">
+            <h4 className="text-lg leading-6 font-semibold font-sans text-skin-inverted group-hover:text-skin-primary">
+              {title}
+            </h4>
+          </div>
+
+          <p className="mt-1 text-sm font-normal text-skin-base leading-5">
+            {description.slice(0,100)+"..."}
+          </p>
+
+          <div className="mt-3 flex items-center font-sans">
+            <div className="shrink-0">
+              <div>
+                <span className="sr-only">John Doe</span>
+
+                <img
+                  className="h-10 w-10 rounded-full"
+                  src={image}
+                  alt="Ekim Kael"
+                />
+              </div>
+            </div>
+
+            <div className="ml-3">
+              <div className="text-sm font-medium text-skin-inverted">
+                <p className="hover:underline">{name}</p>
+              </div>
+
+              <div className="flex space-x-1 text-sm text-skin-muted">
+                <time datetime="2022-02-01">1 Feb, 2022</time>
+
+                <span aria-hidden="true">·</span>
+
+                <span>3 min read time</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </article>
+    </div>
   );
 }

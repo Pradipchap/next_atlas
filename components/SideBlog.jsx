@@ -1,37 +1,32 @@
-import Blogsfeed from "@components/Blogpage";
+"use client";
 import React, { memo } from "react";
-
-import { AuthOptions } from "next-auth";
-import Card from "./card";
+import { useState, useEffect } from "react";
 import Divider from "./smallcomponents/divider";
+import Card from "./card";
+const SideBlog = ({ fetchUrl }) => {
+  const [blogs, setBlogs] = useState({});
 
-const getBlog = async (fetchUrl) => {
-  console.log("fetchurl is ", fetchUrl);
-  try {
-    const res = await fetch(fetchUrl, {
-      cache: "no-store",
-    });
-    const parsed = await res.json();
-    return { blogs: parsed, status: true };
-  } catch (error) {
-    return { status: false };
-  }
-};
-const Blogpage = memo(async ({ title, fetchUrl }) => {
-  console.log("blogs");
-  console.log(fetchUrl);
+  const getBlogs = async () => {
+    try {
+      const res = await fetch(fetchUrl, { cache: "no-cache" });
+      const data = await res.json();
+      setBlogs({ data, status: true });
+    } catch (error) {
+      setBlogs({ status: false });
+    }
+  };
 
-  const blogs = await getBlog(fetchUrl);
-  console.log("first");
-  console.log(blogs);
+  useEffect(() => {
+    getBlogs();
+  }, [fetchUrl]);
 
   return (
     <section class="mx-2 my-5">
-      <h1 class="  font-sans text-xl">{title}</h1>
+      <h1 class="  font-sans text-xl">{"title"}</h1>
       <Divider horizontal={true} />
       <div class="flex flex-wrap gap-8 mt-8">
         {blogs.status ? (
-          blogs.blogs.map((element) => {
+          blogs.data.map((element) => {
             return (
               <Card
                 key={element._id}
@@ -41,7 +36,6 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
                 blogid={element._id}
                 genre={element.genre}
                 image={element.userid.image}
-
                 isOwnerOrNot={false}
               />
             );
@@ -52,7 +46,6 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
       </div>
     </section>
   );
-})
+};
 
-
-export default Blogpage
+export default memo(SideBlog);

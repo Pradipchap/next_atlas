@@ -9,7 +9,7 @@ export const GET = async (request) => {
 
     for (const key of keys) {
       const query = request.nextUrl.searchParams.get(key);
-      const myblogs = await Blog.find({ [key]: query }).populate("userid");
+      const myblogs = await Blog.find({ [key]: query }).populate("userid").limit(3);
       return new Response(JSON.stringify(myblogs), { status: 201 });
     }
 

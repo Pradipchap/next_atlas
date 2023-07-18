@@ -22,7 +22,7 @@ export default async function  RootLayout({ children }) {
           {/* <Topbar/> */}
           <Nav  />
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </Provider>
       </body>
     </html>
