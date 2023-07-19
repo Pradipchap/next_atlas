@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import Input from "./smallcomponents/Input";
+import Input from "./smallcomponents/Inputs/Input";
 import Button from "./Button";
-import Textarea from "./smallcomponents/Textarea";
+import Textarea from "./smallcomponents/Inputs/Textarea";
+import Dropdown from "./smallcomponents/Inputs/dropdown";
+import Alert from "./smallcomponents/alert";
 export default function CreateBlog({
   isFromCreatePage,
   userid,
@@ -17,7 +19,7 @@ export default function CreateBlog({
   //state for title genre and description.. If we are updating the blog
   // the blog contents will be displayed first as the initial value of states
   const [genre, setGenre] = useState(
-    titleGenreDescription && titleGenreDescription.genre
+    titleGenreDescription ? titleGenreDescription.genre : "Science"
   );
   const [description, setDescription] = useState(
     titleGenreDescription && titleGenreDescription.description
@@ -27,10 +29,12 @@ export default function CreateBlog({
       {(isFromCreatePage || userid === sessionid) && (
         //checks whether user is creating blog if not it checks if the user is the creator of the blog
         <div className="">
-          <Input onchange={setTitle} value={title} label="Title" />
-          <Input onchange={setGenre} value={genre} label="Genre" />
+          <Input value={title} operation={setTitle} label="Title" />
+          {/* <Input operation={setTitle} value={title} label="Title" /> */}
+          {/* <Input onchange={setGenre} value={genre} label="Genre" /> */}
+          <Dropdown value={genre} operation={setGenre} label="genre" />
           <Textarea
-            onchange={setDescription}
+            operation={setDescription}
             value={description}
             label="Short Description"
           />

@@ -1,7 +1,7 @@
 "use client";
 import React, { Suspense } from "react";
 import Blogpage from "./Blogpage";
-import Dropdown from "./smallcomponents/dropdown";
+import Dropdown from "./smallcomponents/Inputs/dropdown";
 import { useState } from "react";
 import { set } from "mongoose";
 import { useMemo } from "react";
@@ -28,6 +28,7 @@ const Trending = () => {
       >
         <SideBlog
           fetchUrl={`http://localhost:3000/api/blogs/search?genre=${value}`}
+          title={value}
         />
       </Suspense>
     </div>

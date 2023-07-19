@@ -4,15 +4,18 @@ import React, { memo } from "react";
 import { useState, useEffect } from "react";
 import Divider from "./smallcomponents/divider";
 import Card from "./card";
-const SideBlog = ({ fetchUrl }) => {
-  const [blogs, setBlogs] = useState({});//state for the  total blogs collection
+const SideBlog = ({ fetchUrl, title }) => {
+  const [blogs, setBlogs] = useState({}); //state for the  total blogs collection
 
   //functin that fetches the blog
   const getBlogs = async () => {
     try {
+      //response is the format of
+      //{noOfBlogs:"total no of blogs",blogs:["its a array of documents"]}
       const res = await fetch(fetchUrl, { cache: "no-cache" });
       const data = await res.json();
-      setBlogs({ data, status: true });
+      console.log("sideblogs",data)
+      setBlogs({ blogs: data.blogs, status: true });
     } catch (error) {
       setBlogs({ status: false });
     }
@@ -25,11 +28,11 @@ const SideBlog = ({ fetchUrl }) => {
 
   return (
     <section class="mx-2 my-5">
-      <h1 class="  font-sans text-xl">{"title"}</h1>
+      <h1 class="  font-sans text-xl">{"Blogs related to " + title}</h1>
       <Divider horizontal={true} />
       <div class="flex flex-wrap gap-8 mt-8">
-        {blogs.data ? (
-          blogs.data.map((element) => {
+        {blogs.blogs ? (
+          blogs.blogs.map((element) => {
             return (
               <Card
                 key={element._id}

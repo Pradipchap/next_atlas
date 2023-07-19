@@ -20,6 +20,7 @@ import FontSize from "editorjs-inline-font-size-tool";
 import Button from "./Button";
 
 import CreateBlog from "./CreatePage";
+import Alert from "./smallcomponents/alert";
 
 const initializeEditor = async ({
   content,
@@ -99,6 +100,7 @@ export default function BlogEditor({
   createOrModify,
   blogid,
   titleGenreDescription,
+  isCreationSuccess,
 }) {
   //default value of content is empty string ..
   //if user is updating blog content will be previous blog content
@@ -140,6 +142,7 @@ export default function BlogEditor({
     if (editorRef.current) {
       //saves editor content
       const savedData = await editorRef.current.save();
+      alert(JSON.stringify(title, genre, desctiption, savedData));
 
       //checks to which function it should pass the values
       //either to create page or updatepages
@@ -151,12 +154,15 @@ export default function BlogEditor({
   };
 
   return (
-    <CreateBlog
-      isFromCreatePage={isFromCreatePage}
-      submit={submit}
-      userid={userid}
-      sessionid={sessionid}
-      titleGenreDescription={titleGenreDescription}
-    />
+    <div className="">
+      {isCreationSuccess && <Alert success={isCreationSuccess.success} />}
+      <CreateBlog
+        isFromCreatePage={isFromCreatePage}
+        submit={submit}
+        userid={userid}
+        sessionid={sessionid}
+        titleGenreDescription={titleGenreDescription}
+      />
+    </div>
   );
 }

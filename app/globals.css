@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@layer components {
+    .adjust-center {
+      @apply justify-center items-center;
+    }
+    .adjust-center {
+        @apply justify-between items-center;
+      }
+    .nav-small{
+        @apply flex flex-col justify-start items-start gap-2
+    }
+    .nav-large{
+        @apply flex justify-between items-center flex-row gap-5
+    }
+  }
  
 .ham {
 

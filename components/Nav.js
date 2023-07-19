@@ -11,10 +11,11 @@ import { useRouter } from "next/navigation";
 import NavLinks from "./navLinks";
 import { IoCreateOutline } from "react-icons/io5";
 import Profilecard from "./smallcomponents/Profilecard";
-import Menu from "./smallcomponents/Menu";
+import Menu, { Hamburger } from "./smallcomponents/Menu";
 import Logo from "@public/blogit.png";
+import ProfileComponent from "./navComponents/profileComponent";
 export const Nav = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [handleToggleDropdown, sethandleToggleDropdown] = useState(false);
   const [isdown, setIsDown] = useState(false); //state of scrolling is downward or upward
 
@@ -84,7 +85,7 @@ export const Nav = () => {
   // Event listener for scroll event
 
   return (
-    <div className="flex flex-col justify-center items-center mb-20">
+    <div className="flex flex-col justify-center items-center mb-20 adjust-center">
       {
         //menu
         //
@@ -92,66 +93,26 @@ export const Nav = () => {
           <nav
             className={`navbar ${
               isdown ? "down" : "up"
-            } flex bg-white justify-between py-4  px-5  text-black text-md items-center  m-auto fixed top-0 w-full`}
+            } flex bg-white sm:nav-large py-4  px-5 text-black text-md   m-auto fixed top-0 w-full nav-small adjust-center`}
             ref={navref}
           >
-            <div className="flex justify-center items-center gap-5">
+            <div className="flex items-center sm:nav-large nav-small justify-center adjust-center">
               <NavLinks
                 path="/"
                 name={<Image src={Logo} alt="logo" width={30} height={30} />}
               />
 
               <NavLinks path="/blogs" name="Blogs" />
-
-              <a href="#navbar">Contact us</a>
+              <NavLinks name="Contact us" path="#footer" />
             </div>
-            <div className="">
-              {session ? (
-                <div className="flex gap-5  items-center">
-                  <Link
-                    href="/create"
-                    className="flex gap-1 items-center justify-center animate-bounce"
-                  >
-                    <IoCreateOutline size={25} />
-                    Write
-                  </Link>
-                  <p className="capitalize">{session.user.name}</p>
-                  <span
-                    onClick={() =>
-                      sethandleToggleDropdown(
-                        (handleToggleDropdown) => !handleToggleDropdown
-                      )
-                    }
-                  >
-                    <Image
-                      src={session.user.image}
-                      className="rounded-full"
-                      width={40}
-                      height={40}
-                      alt="profile-photo"
-                    />
-                  </span>
-                  {handleToggleDropdown && (
-                    <Profilecard
-                      session={session}
-                      handlelogout={handlelogout}
-                    />
-                  )}
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  className="cap"
-                  onClick={() => {
-                    signIn();
+            <ProfileComponent
+              status={status}
+              session={session}
+              handleToggleDropdown={handleToggleDropdown}
+              sethandleToggleDropdown={sethandleToggleDropdown}
+              handlelogout={handlelogout}
+            />
 
-                    sethandleToggleDropdown(false);
-                  }}
-                >
-                  Login
-                </button>
-              )}
-            </div>
           </nav>
         ) : (
           <Menu handleMenu={handleMenu} menubarRef={menubarRef} />

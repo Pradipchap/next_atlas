@@ -12,8 +12,11 @@ const getBlog = async (fetchUrl) => {
     const res = await fetch(fetchUrl, {
       cache: "no-store",
     });
-    const parsed = await res.json();
-    return { blogs: parsed, status: true };
+    //response is the format of
+    //{noOfBlogs:"total no of blogs",blogs:["its a array of documents"]}
+    const data = await res.json();
+    console.log("username",data)
+    return { blogs: data.blogs, status: true };
   } catch (error) {
     return { status: false };
   }

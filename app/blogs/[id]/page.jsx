@@ -5,16 +5,18 @@ import React from "react";
 // associated with the blogid
 const getblog = async (id) => {
   console.log("id is ", id);
-  const res = await fetch(
-    `http://localhost:3000/api/blogs/eachblogs?blogid=${id}`,
-    { cache: "no-cache" }
-  );
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/blogs/eachblogs?blogid=${id}`,
+      { cache: "no-cache" }
+    );
 
-  const data = await res.json();
-
-  return data;
+    const blog = await res.json();
+    return blog;
+  } catch (error) {
+    return error
+  }
 };
-
 
 //function to update the blog if user is the creator of the blog
 //it is marked as "use server" because functions cannot be directly passed from server components to client
@@ -47,7 +49,7 @@ export const updateBlog = async (
     console.log("faileddd");
     const output = await res.text();
     console.log(output);
-    return false;
+    return { error };
   }
 };
 
