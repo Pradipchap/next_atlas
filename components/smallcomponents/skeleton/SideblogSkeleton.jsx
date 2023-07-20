@@ -3,7 +3,7 @@ import BlogCardSkeleton from "./BlogCardSkeleton";
 
 export default function SideBlogSkeleton({tailwindclass}) {
   return (
-    <section class="mx-5 my-5">
+    <section className="mx-5 my-5">
       <div className={tailwindclass}>
         <BlogCardSkeleton />
         <BlogCardSkeleton />

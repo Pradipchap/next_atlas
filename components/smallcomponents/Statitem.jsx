@@ -10,24 +10,8 @@ const Statitem = ({ title, value, isPercentage, icon }) => {
 
   
 
-  if(isVisible===true){
-    let a=setInterval(() => {
-      
-      if(x<=200){
-        setX(x=>x+10)
-      }
-    }, 1000);
-    if(x==200){
-    clearInterval(a)
-    }
-
-  }
-
-  
-
-
   return (
-    <ReactVisibilitySensor onChange={(status)=>setIsVisible(status)}>
+    <ReactVisibilitySensor onChange={(status) => setIsVisible(status)}>
       <div className=" border-2 border-black rounded-xl h-52 w-72 gap-5 flex justify-center items-center">
         <PiUserLight color="red" className=" w-16 h-16 " />
         <div className="flex flex-col justify-center items-center gap-3">

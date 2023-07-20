@@ -3,11 +3,13 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Divider from "./smallcomponents/divider";
+import Profilecard from "./smallcomponents/Profilecard";
 export default function Card({
   blogid,
   title,
   name,
   genre,
+  proifileImage,
   image,
   description,
   update,
@@ -29,7 +31,7 @@ export default function Card({
         <div className="aspect-w-3 aspect-h-2">
           <Image
             className="object-cover shadow-lg rounded-lg group-hover:opacity-75 max-md:hidden"
-            src={image}
+            src={image?image:proifileImage}
             alt="Featured Photo"
             width={200}
             height={150}
@@ -71,7 +73,7 @@ export default function Card({
 
                 <img
                   className="h-10 w-10 rounded-full"
-                  src={image}
+                  src={proifileImage}
                   alt="Ekim Kael"
                 />
               </div>

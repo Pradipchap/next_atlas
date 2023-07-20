@@ -15,36 +15,37 @@ const Create = async () => {
   }
   const [creationStatus, setCreationStatus] = useState(false);
   const router = useRouter();
-  const { data: session,status } = useSession();
+  const { data: session, status } = useSession();
   const createBlog = async (data, title, genre, description) => {
     alert(JSON.stringify({ data, title, genre, description }));
-    console.log(title);
-    console.log(` value of session ${session?.user.name}`);
+    console.log(JSON.stringify(data));
+    alert(` value of session ${session?.user.id}`);
     try {
       //upload to mongodb database
-if(status==="authenticated"){
-      const res = await fetch("/api/blogs/newblog", {
-        method: "POST",
-        body: JSON.stringify({
-          userid: session?.user.id,
-          title: title,
-          genre: genre,
-          description: description,
-          content: data,
-        }),
-      
-      })}
-      await console.log(res);
-      if (res.ok) {
-        setCreationStatus({ success: true });
-        // router.push("/");
-        // createElement(Greeting, { name: "Taylor" });s
-        //if the response from the request is ok then redirect to home
-        //additional code can be written here to manage how ui behaves after blog creattion success
-      } else {
-        alert(res.statusText);
-        setCreationStatus({ success: false });
-      }
+      // if (typeof session.user.id !== undefined) {
+        const res = await fetch("/api/blogs/newblog", {
+          method: "POST",
+          body: JSON.stringify({
+            userid: session?.user.id,
+            title: title,
+            genre: genre,
+            description: description,
+            content: data,
+          }),
+        });
+
+        await console.log(res);
+        if (res.ok) {
+          setCreationStatus({ success: true });
+          // router.push("/");
+          // createElement(Greeting, { name: "Taylor" });s
+          //if the response from the request is ok then redirect to home
+          //additional code can be written here to manage how ui behaves after blog creattion success
+        } else {
+          alert(res.statusText);
+          setCreationStatus({ success: false });
+        }
+      // }
     } catch (error) {
       setCreationStatus({ success: false });
       alert(` error while submitting ${error}`);

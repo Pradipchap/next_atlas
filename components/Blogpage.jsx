@@ -30,10 +30,10 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
   console.log(blogs);
 
   return (
-    <section class="mx-2 my-5">
-      <h1 class="  font-sans text-xl">{title}</h1>
+    <section className="mx-2 my-5">
+      <h1 className="  font-sans text-xl">{title}</h1>
       <Divider horizontal={true} />
-      <div class="flex flex-wrap gap-8 mt-8">
+      <div className="flex flex-wrap gap-8 mt-8">
         {blogs.status ? (
           blogs.blogs.map((element) => {
             return (
@@ -44,7 +44,8 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
                 name={element.userid.username}
                 blogid={element._id}
                 genre={element.genre}
-                image={element.userid.image}
+                proifileImage={element.userid.image}
+                image={element.image}
                 date={element.date}
                 isOwnerOrNot={false}
               />

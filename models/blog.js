@@ -26,7 +26,13 @@ const BlogSchema = new Schema({
   content:{
     type:Schema.Types.Mixed,
     required:[true,"content is required"]
-  }
+  },
+  image: {
+    type: String,
+    required: [false, "image isnot required."],
+  },
+
+  
   
 });
 

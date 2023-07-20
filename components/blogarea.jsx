@@ -41,6 +41,7 @@ const initializeEditor = async ({
     },
 
     onChange: () => {},
+
     tools: {
       checklist: {
         class: Checklist,
@@ -79,6 +80,10 @@ const initializeEditor = async ({
         },
         toolbox: true,
       },
+      // textVariantTune:{
+      //   class:TextVariantTune,
+      //   toolbox:true
+      // }
     },
     placeholder: "lets write a blog",
     data: content,
@@ -108,8 +113,8 @@ export default function BlogEditor({
   const [isEditorActive, setisEditorActive] = useState(false);
   const [title, setTitle] = useState("");
   const editorRef = useRef();
-  const { data: session } = useSession();
-  const sessionid = session?.user.id;
+  const { data: session,status } = useSession();
+  const sessionid = status==="authenticated"?session?.user.id:"null";
 
   useEffect(() => {
     //sets editorInstance as the editor

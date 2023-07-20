@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import { useState } from "react";
 import Blogpage from "./Blogpage";
 import SideBlogSkeleton from "./smallcomponents/skeleton/SideblogSkeleton";
-import {GrNext} from "react-icons/gr"
+import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 const MainBlogs = () => {
   const [page, setPage] = useState(1);
@@ -20,16 +20,18 @@ const MainBlogs = () => {
           title="Recent Blogs"
           fetchUrl={`http://localhost:3000/api/blogs?page=${page}`}
         />
+        <div className=" flex w-full justify-center gap-20">
+          <button
+            onClick={() => setPage((page) => page - 1)}
+            disabled={page === 1 ? true : false}
+          >
+            <GrPrevious className="text-3xl hover:text-4xl" />
+          </button>
+          <button onClick={() => setPage((page) => page + 1)}>
+            <GrNext className="text-3xl hover:text-4xl" />
+          </button>
+        </div>
       </Suspense>
-      <div className=" flex w-full justify-center gap-20">
-        <button
-          onClick={() => setPage((page) => page - 1)}
-          disabled={page === 1 ? true : false}
-        >
-          <GrPrevious  className="text-3xl hover:text-4xl"/>
-        </button>
-        <button onClick={() => setPage((page) => page + 1)}><GrNext className="text-3xl hover:text-4xl"/></button>
-      </div>
     </div>
   );
 };

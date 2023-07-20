@@ -27,10 +27,10 @@ const SideBlog = ({ fetchUrl, title }) => {
   }, [fetchUrl]);
 
   return (
-    <section class="mx-2 my-5">
-      <h1 class="  font-sans text-xl">{"Blogs related to " + title}</h1>
+    <section className="mx-2 my-5">
+      <h1 className="  font-sans text-xl">{"Blogs related to " + title}</h1>
       <Divider horizontal={true} />
-      <div class="flex flex-wrap gap-8 mt-8">
+      <div className="flex flex-wrap gap-8 mt-8">
         {blogs.blogs ? (
           blogs.blogs.map((element) => {
             return (
@@ -41,7 +41,8 @@ const SideBlog = ({ fetchUrl, title }) => {
                 name={element.userid.username}
                 blogid={element._id}
                 genre={element.genre}
-                image={element.userid.image}
+                proifileImage={element.userid.image}
+                image={element.image}
                 isOwnerOrNot={false}
               />
             );
