@@ -18,7 +18,7 @@ export const POST = async (request) => {
       description,
       content,
       date: new Date(),
-      image: typeof imageUrl ===undefined?"false":imageUrl.data.url,
+      image: typeof imageUrl === undefined ? "false" : imageUrl.data.url,
     });
 
     await newBlog.save();

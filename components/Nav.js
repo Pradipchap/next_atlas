@@ -85,7 +85,7 @@ export const Nav = () => {
   // Event listener for scroll event
 
   return (
-    <div className="flex flex-col justify-center items-center mb-20 adjust-center">
+    <div className="flex flex-col justify-center items-center sm:mb-20 adjust-center mb-40 ">
       {
         //menu
         //
