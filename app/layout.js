@@ -13,13 +13,15 @@ const open_Sans = Open_Sans({ subsets: ["latin"], weight: "400" });
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
-export default async function RootLayout({ children }) {
+export default async function RootLayout({ children ,mainblogs,sideblogs}) {
   return (
     <html lang="en" className={open_Sans.className}>
       <body>
         <Provider>
           <Nav />
           {children}
+          {mainblogs}
+          {sideblogs}
         </Provider>
       </body>
     </html>

@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import React from "react";
 import { signIn } from "next-auth/react";
 import { IoCreateOutline } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
 import Profilecard from "@components/smallcomponents/Profilecard";
+import NavLinks from "@components/navLinks";
 const ProfileComponent = ({
   status,
   session,
@@ -14,14 +15,22 @@ const ProfileComponent = ({
 }) => {
   return (
     <div className="">
-      <div className="flex sm:nav-large nav-small adjust-center">
-        <Link
+      <div className="flex sm:nav-large nav-small justify-start">
+        {/* <Link
           href="/create"
           className="flex gap-1 items-center justify-center sm:animate-bounce"
         >
           <IoCreateOutline size={25} />
           Write
-        </Link>
+        </Link> */}
+        <NavLinks
+          path="/create"
+          name={
+            <div className="flex adjust-center">
+              <IoCreateOutline size={25} /> <p>create</p>
+            </div>
+          }
+        />
         {status === "authenticated" ? (
           <div className="flex justify-center items-center gap-3">
             <p className="capitalize">{session.user.name}</p>

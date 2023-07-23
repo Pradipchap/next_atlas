@@ -1,4 +1,3 @@
-import Blogsfeed from "@components/Blogpage";
 import React, { memo } from "react";
 
 import { AuthOptions } from "next-auth";
@@ -13,15 +12,17 @@ const getBlog = async (fetchUrl) => {
       cache: "no-store",
     });
     //response is the format of
+
     //{noOfBlogs:"total no of blogs",blogs:["its a array of documents"]}
     const data = await res.json();
-    console.log("username",data)
-    return { blogs: data.blogs, status: true };
+
+    console.log("username", data);
+    return data.blogs;
   } catch (error) {
     return { status: false };
   }
 };
-const Blogpage = memo(async ({ title, fetchUrl }) => {
+const Blogpage = async ({ title, fetchUrl }) => {
   console.log("blogs");
   console.log(fetchUrl);
 
@@ -34,8 +35,8 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
       <h1 className="  font-sans text-xl">{title}</h1>
       <Divider horizontal={true} />
       <div className="flex flex-wrap gap-8 mt-8">
-        {blogs.status ? (
-          blogs.blogs.map((element) => {
+        {blogs? (
+          blogs.map((element) => {
             return (
               <Card
                 key={element._id}
@@ -57,6 +58,6 @@ const Blogpage = memo(async ({ title, fetchUrl }) => {
       </div>
     </section>
   );
-});
+};
 
 export default Blogpage;

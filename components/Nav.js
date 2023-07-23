@@ -93,10 +93,10 @@ export const Nav = () => {
           <nav
             className={`navbar ${
               isdown ? "down" : "up"
-            } flex bg-white sm:nav-large py-4  px-5 text-black text-md   m-auto fixed top-0 w-full nav-small adjust-center`}
+            }  w-full flex bg-white/95  sm:nav-large py-4  px-5 text-black text-md   m-auto fixed top-0  nav-small adjust-center`}
             ref={navref}
           >
-            <div className="flex items-center sm:nav-large nav-small justify-center adjust-center">
+            <div className="sm:flex items-start sm:nav-large nav-small justify-start ">
               <NavLinks
                 path="/"
                 name={<Image src={Logo} alt="logo" width={30} height={30} />}

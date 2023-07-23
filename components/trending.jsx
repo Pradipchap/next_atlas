@@ -19,18 +19,10 @@ const Trending = () => {
     <div className="w-[30rem]  max-lg:hidden overflow-y-auto">
       <Dropdown value={value} operation={getValue} />
 
-      <Suspense
-        fallback={
-          <SideBlogSkeleton
-            tailwindclass={"w-[30rem]  max-lg:hidden flex flex-col gap-5"}
-          />
-        }
-      >
-        <SideBlog
-          fetchUrl={`http://localhost:3000/api/blogs/search?genre=${value}`}
-          title={value}
-        />
-      </Suspense>
+      <Blogpage
+        fetchUrl={`http://localhost:3000/api/blogs/search?genre=${value}`}
+        title={value}
+      />
     </div>
   );
 };

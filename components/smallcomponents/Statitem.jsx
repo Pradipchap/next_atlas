@@ -18,11 +18,11 @@ const Statitem = ({ title, value, isPercentage, icon }) => {
             const newX = prevX + 2;
             return newX;
           });
-        }, 1);
+        }, 5);
       }
     }
 
-    // Clean up the interval when the component is unmounted or x >= 20
+
     return () => clearInterval(interval);
   }, [x, isVisible]);
   return (
@@ -32,7 +32,7 @@ const Statitem = ({ title, value, isPercentage, icon }) => {
         {icon}
         <div className="flex flex-col justify-center items-center gap-3">
           <p className="text-2xl font-black">{title}</p>
-          <p className=" asd text-2xl font-bold">{x}</p>
+          <p className=" asd text-2xl font-bold">{x}+</p>
         </div>
       </div>
     </ReactVisibilitySensor>
